@@ -8,5 +8,6 @@ public interface ViajeroService {
     List<Viajero> listarViajeros();
     Viajero obtenerPorId(Integer id);
     Viajero actualizarViajero(Integer id, Viajero viajero);
-    void eliminarViajero(Integer id);
+    boolean eliminarViajero(Integer id);
+    Viajero obtenerPorEmail(String email);
 }

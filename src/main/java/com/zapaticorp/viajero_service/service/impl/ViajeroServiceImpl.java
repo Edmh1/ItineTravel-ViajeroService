@@ -52,7 +52,18 @@ public class ViajeroServiceImpl implements ViajeroService {
     }
 
     @Override
-    public void eliminarViajero(Integer id) {
-        repository.deleteById(id);
+    public boolean eliminarViajero(Integer id) {
+        int filas = repository.desactivarViajero(id);
+
+        if(filas == 0){
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public Viajero obtenerPorEmail(String email) {
+        return repository.findByEmail(email);
     }
 }
