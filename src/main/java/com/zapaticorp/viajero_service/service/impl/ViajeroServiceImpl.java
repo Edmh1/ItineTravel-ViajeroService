@@ -3,10 +3,12 @@ package com.zapaticorp.viajero_service.service.impl;
 import com.zapaticorp.viajero_service.entity.Viajero;
 import com.zapaticorp.viajero_service.repository.ViajeroRepository;
 import com.zapaticorp.viajero_service.service.ViajeroService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -23,6 +25,7 @@ public class ViajeroServiceImpl implements ViajeroService {
     @Override
     public Viajero crearViajero(Viajero viajero) {
         viajero.setClave(passwordEncoder.encode(viajero.getClave()));
+        viajero.setFechaCreacion(LocalDate.now());
         return repository.save(viajero);
     }
 

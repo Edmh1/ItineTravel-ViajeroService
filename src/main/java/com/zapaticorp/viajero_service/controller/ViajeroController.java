@@ -27,15 +27,15 @@ public class ViajeroController {
     @PostMapping
     public ResponseEntity<ApiResponse> crear(@RequestBody RegisterRequest request) {
         Viajero existe = service.obtenerPorEmail(request.getEmail());
-        if(existe.getEmail() != null){
-            return  ResponseEntity.badRequest().body(new ApiResponse<ViajeroResponse>(false, null, "El usuario con este email ya existe."));
+        if (existe != null) {
+            return ResponseEntity.badRequest().body(new ApiResponse<ViajeroResponse>(false, null, "El usuario con este email ya existe."));
         }
 
         Viajero viajero = new Viajero();
         viajero.setNombreUsuario(request.getNombreUsuario());
         viajero.setApellidoUsuario(request.getApellidoUsuario());
         viajero.setEmail(request.getEmail());
-        viajero.setClave(passwordEncoder.encode(request.getClave()));
+        viajero.setClave(request.getClave());
 
         Integer id = service.crearViajero(viajero).getIdViajero();
 
