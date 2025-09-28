@@ -39,26 +39,26 @@ public class ViajeroController {
 
         Integer id = service.crearViajero(viajero).getIdViajero();
 
-        if(id == null){
-            return  ResponseEntity.badRequest().body(new ApiResponse<ViajeroResponse>(false, null, "Error al guardar el usuario."));
+        if (id == null) {
+            return ResponseEntity.badRequest().body(new ApiResponse<ViajeroResponse>(false, null, "Error al guardar el usuario."));
         }
 
-        return ResponseEntity.ok(new ApiResponse<ViajeroResponse>(true, new ViajeroResponse(id, viajero.getEmail()),null));
+        return ResponseEntity.ok(new ApiResponse<ViajeroResponse>(true, new ViajeroResponse(id, viajero.getEmail()), null));
     }
 
     @PostMapping("/auth")
     public ResponseEntity<ApiResponse> validarViajero(@RequestBody LoginResponse request) {
         Viajero viajero = service.obtenerPorEmail(request.getEmail());
 
-        if(viajero == null){
+        if (viajero == null) {
             return ResponseEntity.badRequest().body(new ApiResponse<ViajeroResponse>(false, null, "El usuario no existe"));
         }
 
-        if(!passwordEncoder.matches(request.getClave(), viajero.getClave())){
+        if (!passwordEncoder.matches(request.getClave(), viajero.getClave())) {
             return ResponseEntity.badRequest().body(new ApiResponse<ViajeroResponse>(false, null, "Las credenciales del usuario son incorrectas"));
         }
 
-        return ResponseEntity.ok(new ApiResponse<>(true, new ViajeroResponse(viajero.getIdViajero(), viajero.getEmail()),null));
+        return ResponseEntity.ok(new ApiResponse<>(true, new ViajeroResponse(viajero.getIdViajero(), viajero.getEmail()), null));
     }
 
     @GetMapping
@@ -80,10 +80,10 @@ public class ViajeroController {
     public ResponseEntity<ApiResponse> eliminar(@PathVariable Integer id) {
         boolean desactivado = service.eliminarViajero(id);
 
-        if(!desactivado){
+        if (!desactivado) {
             return ResponseEntity.badRequest().body(new ApiResponse<ViajeroResponse>(false, null, "El usuario no existe"));
         }
 
-        return ResponseEntity.ok(new ApiResponse<ViajeroResponse>(true, new ViajeroResponse(id, ""),null));
+        return ResponseEntity.ok(new ApiResponse<ViajeroResponse>(true, new ViajeroResponse(id, ""), null));
     }
 }
