@@ -36,6 +36,7 @@ public class ViajeroController {
         viajero.setApellidoUsuario(request.getApellidoUsuario());
         viajero.setEmail(request.getEmail());
         viajero.setClave(request.getClave());
+        viajero.setTelefono(request.getTelefono());
 
         Integer id = service.crearViajero(viajero).getIdViajero();
 
